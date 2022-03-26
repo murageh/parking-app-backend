@@ -4,6 +4,7 @@ import parkingSpots from '../services/parking.service.mjs';
 // payments.init().then(res => console.log(res));
 
 async function get(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
       res.json(await parkingSpots.getMultiple());
   } catch (err) {
@@ -13,6 +14,7 @@ async function get(req, res, next) {
 }
 
 async function getSingle(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
       res.json(await parkingSpots.getSingle(req.params.id));
   } catch (err) {
@@ -22,6 +24,7 @@ async function getSingle(req, res, next) {
 }
 
 async function create(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
     res.json(await parkingSpots.create(req.body));
   } catch (err) {
@@ -31,6 +34,7 @@ async function create(req, res, next) {
 }
 
 async function update(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
     res.json(await parkingSpots.update(req.params.id, req.body));
   } catch (err) {
@@ -40,6 +44,7 @@ async function update(req, res, next) {
 }
 
 async function remove(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
     res.json(await parkingSpots.remove(req.params.id));
   } catch (err) {

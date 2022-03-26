@@ -4,6 +4,7 @@ import users from '../services/users.service.mjs';
 // payments.init().then(res => console.log(res));
 
 async function get(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
       res.json(await users.getMultiple());
   } catch (err) {
@@ -13,6 +14,7 @@ async function get(req, res, next) {
 }
 
 async function getSingle(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
       res.json(await users.getSingle(req.params.id));
   } catch (err) {
@@ -22,6 +24,7 @@ async function getSingle(req, res, next) {
 }
 
 async function create(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
     res.json(await users.create(req.body));
   } catch (err) {
@@ -31,6 +34,7 @@ async function create(req, res, next) {
 }
 
 async function login(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
     res.json(await users.login(req.body));
   } catch (err) {
@@ -40,6 +44,7 @@ async function login(req, res, next) {
 }
 
 async function bookParking(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
     res.json(await users.bookParking(req.params.id, req.body));
   } catch (err) {
@@ -49,6 +54,7 @@ async function bookParking(req, res, next) {
 }
 
 async function getBill(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
     res.json(await users.getBill(req.params.id));
   } catch (err) {
@@ -58,6 +64,7 @@ async function getBill(req, res, next) {
 }
 
 async function pay(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
     res.json(await users.pay(req.params.id, req.body));
   } catch (err) {
@@ -67,6 +74,7 @@ async function pay(req, res, next) {
 }
 
 async function update(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
     res.json(await users.update(req.params.id, req.body));
   } catch (err) {
@@ -76,6 +84,7 @@ async function update(req, res, next) {
 }
 
 async function remove(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
   try {
     res.json(await users.remove(req.params.id));
   } catch (err) {
