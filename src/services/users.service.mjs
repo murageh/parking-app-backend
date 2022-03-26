@@ -134,7 +134,7 @@ async function getBill(id) {
 
     const flatFee = user.parkingSpot.cost;
     const additionalFee = Math.ceil((((endTime - startTime) / (1000 * 60)) - 5 - user.parkingSpot.duration ) * user.parkingSpot.lateFee);
-    let totalCost = (flatFee + additionalFee).toFixed(2);
+    let totalCost = flatFee + additionalFee;
     if (totalCost < flatFee) totalCost = flatFee;
 
     return {
