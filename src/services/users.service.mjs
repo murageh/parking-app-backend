@@ -72,7 +72,7 @@ async function getSingleFromEmail(email) {
         where: {
             email: email
         },
-        include: db.parkingSpots,
+        include: [db.parkingSpots, db.payments],
         attributes: {exclude: ['password']}
     }).catch(error => {
         success = false;
@@ -92,7 +92,7 @@ async function login(body) {
         where: {
             email: body.email
         },
-        include: db.parkingSpots,
+        include: [db.parkingSpots, db.payments],
     }).catch(error => {
         success = false;
         message = "Could not login. " + error
@@ -119,7 +119,7 @@ async function getBill(id) {
         where: {
             id: id
         },
-        include: db.parkingSpots,
+        include: [db.parkingSpots, db.payments],
     }).catch(error => {
         success = false;
         message = "Could not find user. " + error
@@ -159,7 +159,7 @@ async function bookParking(id, body) {
         where: {
             id: id
         },
-        include: db.parkingSpots,
+        include: [db.parkingSpots, db.payments],
     }).catch(error => {
         success = false;
         message = "Could not find user. " + error
