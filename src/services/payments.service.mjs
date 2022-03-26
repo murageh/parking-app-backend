@@ -85,14 +85,8 @@ async function update(id, payment) {
         },
     });
 
-    let obj = {};
-    const keys = payment.keys();
-    for (let key of keys) {
-        obj[key] = payment[key];
-    }
-
     await savedPayment.update({
-        ...obj
+        ...payment
     }).catch(error => {
         success = false;
         message = "Could not update payment. " + error

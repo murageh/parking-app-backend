@@ -106,14 +106,8 @@ async function update(id, spot) {
         },
     });
 
-    let obj = {};
-    const keys = spot.keys();
-    for (let key of keys) {
-        obj[key] = spot[key];
-    }
-
     await savedSpot.update({
-        ...obj
+        ...spot
     }).catch(error => {
         success = false;
         message = "Could not update parking spot. " + error

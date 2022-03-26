@@ -290,16 +290,11 @@ async function update(id, user) {
 
     const savedUser = await users.findOne({
         where: {
-            email: user.email,
             id: id
         },
     });
 
-    let obj = {};
-    const keys = user.keys();
-    for (let key of keys) {
-        obj[key] = user[key];
-    }
+    let obj = {...user}; //TODO: Unsafe. Should filter settable fields.
 
     await savedUser.update({
         ...obj
