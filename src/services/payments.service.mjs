@@ -1,4 +1,5 @@
 import db from "../models/index.mjs";
+
 const bcrypt = import("bcrypt");
 const {sequelize, payments} = db;
 
@@ -34,6 +35,26 @@ async function init() {
 async function getMultiple() {
     let success = true, message = "Fetch successful";
     const savedPayments = await payments.findAll().catch(error => {
+        success = false;
+        message = "Could not fetch payments. " + error
+    });
+
+    return {
+        success,
+        message,
+        payments: savedPayments,
+    }
+}
+
+
+async function getMultipleByUser(id) {
+    let success = true, message = "Fetch successful";
+    const savedPayments = await payments.findAll({
+            where: {
+                UserId: id
+            }
+        }
+    ).catch(error => {
         success = false;
         message = "Could not fetch payments. " + error
     });
@@ -117,6 +138,7 @@ export default {
     init,
     destroy,
     getMultiple,
+    getMultipleByUser,
     getSingle,
     create,
     update,

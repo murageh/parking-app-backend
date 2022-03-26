@@ -13,6 +13,16 @@ async function get(req, res, next) {
   }
 }
 
+async function getByUser(req, res, next) {
+  console.log({"params:": req.params, "body:": req.body});
+  try {
+      res.json(await payments.getMultipleByUser(req.params.id));
+  } catch (err) {
+      console.error(`Error while getting payments. `, err.message);
+      next(err);
+  }
+}
+
 async function getSingle(req, res, next) {
   console.log({"params:": req.params, "body:": req.body});
   try {
@@ -55,6 +65,7 @@ async function remove(req, res, next) {
 
 export default {
   get,
+  getByUser,
   getSingle,
   create,
   update,

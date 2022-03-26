@@ -8,6 +8,9 @@ router.get('/', paymentController.get);
 // GET payment by id
 router.get('/:id', paymentController.getSingle);
 
+// GET payments from user
+router.get('/fromUser/:id', paymentController.getByUser);
+
 /* POST payment */
 router.post('/', paymentController.create);
 
