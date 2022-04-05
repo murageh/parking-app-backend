@@ -6,6 +6,7 @@ const port = process.env.PORT || 8000;
 import usersRouter from './src/routes/users.route.mjs';
 import parkingRouter from './src/routes/parking.route.mjs';
 import paymentRouter from './src/routes/payments.route.mjs';
+import adminRouter from './src/routes/admin.route.mjs';
 
 const corsOptions = {
     origin: '*',
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 app.use('/users', usersRouter);
 app.use('/parking', parkingRouter);
 app.use('/payments', paymentRouter);
+app.use('/admin', adminRouter);
 
 // For imagekit uploads
 // app.use('/upload/', uploadsRouter);
