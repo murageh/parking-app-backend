@@ -11,7 +11,6 @@ const sequelize = await new Sequelize(
         host: dbConfig.HOST,
         dialect: dbConfig.dialect,
         pool: dbConfig.pool,
-        operatorsAliases: false
     }
 );
 

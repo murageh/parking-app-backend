@@ -13,7 +13,7 @@ const corsOptions = {
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(
   bodyParser.urlencoded({
@@ -43,8 +43,6 @@ app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   console.error(err.message, err.stack);
   res.status(statusCode).json({success: false, 'message': err.message});
-  
-  return;
 });
 
 app.listen(port, '0.0.0.0', () => {
