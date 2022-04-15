@@ -78,6 +78,26 @@ async function getMultipleByUser(id) {
         message = "Could not fetch payments. " + error
     });
 
+    let modifiedPayments = [...savedPayments];
+
+    for (let payment of modifiedPayments){
+        const spot = await parkingSpots.findOne({
+            where: {
+                id: payment.ParkingSpotId ?? 0
+            },
+        });
+        const user = await users.findOne({
+            where: {
+                id: payment.UserId ?? 0
+            },
+        });
+        // console.log({user: user.dataValues.name, spot: spot.dataValues.name})
+        payment.dataValues.parkingSpotName = spot.dataValues.name;
+        payment.dataValues.userName = user.dataValues.name;
+        // console.log(payment)
+    }
+
+
     return {
         success,
         message,

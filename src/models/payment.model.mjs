@@ -13,6 +13,10 @@ export default (sequelize, Sequelize) => {
                 type: Sequelize.INTEGER,
                 defaultValue: 0
             },
+            carRegNumber: {
+                type: Sequelize.STRING,
+                defaultValue: null
+            },
         }, {
             // Other model options go here
             sequelize: sequelize, // We need to pass the connection instance

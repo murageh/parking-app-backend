@@ -212,6 +212,7 @@ async function bookParking(id, body) {
 
 async function pay(id, body) {
     let success = true, message = "Payment successful.";
+    let carRegNumber = null;
 
     const user = await users.findOne({
         where: {
@@ -233,6 +234,8 @@ async function pay(id, body) {
     const onlineSpot = await parkingSpots.findOne({where: {id: user.parkingSpot.id}})
         .catch(e => console.log(e));
 
+    carRegNumber = onlineSpot.dataValues.currentVehicle;
+
     await user.setParkingSpot(null).catch(e => {
         console.log(e);
         success = false;
@@ -249,6 +252,7 @@ async function pay(id, body) {
     });
     const payment = await payments.create({
         amountPaid: body.amount,
+        carRegNumber
         // UserId: user.id,
         // OnlineSpotId: onlineSpot.id,
     }).catch(e => {
