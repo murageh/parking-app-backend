@@ -10,6 +10,7 @@ const sequelize = await new Sequelize(
     {
         host: dbConfig.HOST,
         dialect: dbConfig.dialect,
+        dialectOptions: dbConfig.dialectOptions,
         pool: dbConfig.pool,
     }
 );
