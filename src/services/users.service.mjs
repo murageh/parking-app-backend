@@ -1,6 +1,7 @@
 import db from "../models/index.mjs";
 const bcrypt = import("bcrypt");
 const {sequelize, users, parkingSpots, payments} = db;
+import paymentsService from '../services/payments.service.mjs';
 
 async function destroy() {
     let message = 'Database deleted successfully';
@@ -35,11 +36,19 @@ async function getMultiple() {
     let success = true, message = "Fetch successful";
     const usersSaved = await users.findAll({
         attributes: {exclude: ['password']},
-        include: [db.parkingSpots, db.payments],
+        include: [db.parkingSpots],
     }).catch(error => {
         success = false;
         message = "Could not fetch payments. " + error
     });
+
+    if (users) {
+        for (let user of usersSaved) {
+            const {payments} = await paymentsService.getMultipleByUser(user.id);
+            user.dataValues.payments = payments;
+            console.log(user.payments);
+        }
+    }
 
     return {
         success,
@@ -53,11 +62,17 @@ async function getSingle(id) {
 
     const user = await users.findByPk(id, {
         attributes: {exclude: ['password']},
-        include: [db.parkingSpots, db.payments]
+        include: [db.parkingSpots]
     }).catch(error => {
         success = false;
         message = "Could not fetch payments. " + error
     });
+
+    if (user) {
+        const {payments} = await paymentsService.getMultipleByUser(user.id);
+        user.dataValues.payments = payments;
+        console.log(user.payments);
+    }
 
     return {
         success: true,
