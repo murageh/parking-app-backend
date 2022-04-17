@@ -149,7 +149,7 @@ async function getBill(id) {
 async function bookParking(id, body) {
     let success = true, message = "Parking spot booked successfully";
     const spotId = body.parkingSpotId;
-    const carRegNumber = body.carRegNo;
+    let carRegNumber = body.carRegNo;
 
     if (!spotId || !carRegNumber){
         return {success: false, message: `spotId or carRegNumber cannot be null.`, user: {}}
@@ -181,6 +181,8 @@ async function bookParking(id, body) {
     if (onlineSpot.booked){
         return {success: false, message: `The requested parking spot is already booked.`, user: {}}
     }
+
+    carRegNumber = carRegNumber.toUpperCase();
 
     await user.update({
         carRegNumber: carRegNumber,
@@ -235,6 +237,17 @@ async function pay(id, body) {
         .catch(e => console.log(e));
 
     carRegNumber = onlineSpot.dataValues.currentVehicle;
+    const payment = await payments.create({
+        amountPaid: body.amount,
+        carRegNumber,
+        parkingSpotName: user.parkingSpot.name
+        // UserId: user.id,
+        // OnlineSpotId: onlineSpot.id,
+    }).catch(e => {
+        console.log(e);
+        success = false;
+        message = "Could not create payment details. " + e
+    });
 
     await user.setParkingSpot(null).catch(e => {
         console.log(e);
@@ -249,16 +262,6 @@ async function pay(id, body) {
         console.log(e);
         success = false;
         message = "Could not update parking spot details. " + e
-    });
-    const payment = await payments.create({
-        amountPaid: body.amount,
-        carRegNumber
-        // UserId: user.id,
-        // OnlineSpotId: onlineSpot.id,
-    }).catch(e => {
-        console.log(e);
-        success = false;
-        message = "Could not create payment details. " + e
     });
     await user.addPayment(payment);
     await onlineSpot.addPayment(payment);

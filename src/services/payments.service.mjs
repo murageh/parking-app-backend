@@ -53,7 +53,7 @@ async function getMultiple() {
             },
         });
         // console.log({user: user.dataValues.name, spot: spot.dataValues.name})
-        payment.dataValues.parkingSpotName = spot.dataValues.name;
+        payment.dataValues.parkingSpotName = spot?.dataValues?.name ?? "NOT FOUND";
         payment.dataValues.userName = user.dataValues.name;
         // console.log(payment)
     }
@@ -91,8 +91,8 @@ async function getMultipleByUser(id) {
                 id: payment.UserId ?? 0
             },
         });
-        // console.log({user: user.dataValues.name, spot: spot.dataValues.name})
-        payment.dataValues.parkingSpotName = spot.dataValues.name;
+        console.log({payment, spot})
+        payment.dataValues.parkingSpotName = spot?.dataValues?.name ?? "NOT FOUND";
         payment.dataValues.userName = user.dataValues.name;
         // console.log(payment)
     }
